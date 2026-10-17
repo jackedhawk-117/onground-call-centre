@@ -72,6 +72,13 @@ export function Dialer() {
         </div>
       )}
 
+      {call.status === 'in-call' && call.kind === 'ai' && call.lastUtterance && (
+        <div className="call-caption">
+          <div className="caption-badge">AI Shopper Speaking</div>
+          <p>"{call.lastUtterance}"</p>
+        </div>
+      )}
+
       {(call.status === 'calling' || call.status === 'in-call') && (
         <button className="btn-primary" style={{ background: '#be123c', width: '100%', marginTop: 8 }} onClick={call.hangUp}>
           Hang up

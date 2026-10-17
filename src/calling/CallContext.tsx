@@ -22,6 +22,7 @@ type CallState = {
   kind: CallKind
   error: string
   openDialer: boolean
+  lastUtterance?: string
 }
 
 type CallApi = CallState & {
@@ -96,7 +97,7 @@ export function CallProvider({ children }: { children: ReactNode }) {
     connRef.current = null
     incomingRef.current = null
     stopLocal()
-    setState((s) => ({ ...s, status: 'idle', remoteLabel: '', error: '' }))
+    setState((s) => ({ ...s, status: 'idle', remoteLabel: '', lastUtterance: '', error: '' }))
   }, [stopLocal])
 
   useEffect(() => {
@@ -184,19 +185,22 @@ export function CallProvider({ children }: { children: ReactNode }) {
     async (label = 'Priya Iyer · AI shopper') => {
       try {
         await getMic()
+        const greeting = `Hello, this is ${label.split('·')[0].trim()}. I visited the store and I still have a few questions.`
         setState((s) => ({
           ...s,
           status: 'in-call',
           kind: 'ai',
           remoteLabel: label,
+          lastUtterance: greeting,
           error: '',
           openDialer: true,
         }))
-        await speak(`Hello, this is ${label.split('·')[0].trim()}. I visited the store and I still have a few questions.`)
+        await speak(greeting)
         let i = 0
         aiTimer.current = window.setInterval(() => {
           const line = aiReplies[i % aiReplies.length]
           i += 1
+          setState((s) => ({ ...s, lastUtterance: line }))
           void speak(line)
         }, 18000)
       } catch (err) {

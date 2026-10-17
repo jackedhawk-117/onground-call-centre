@@ -433,7 +433,29 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex; align-items: center; gap: 6px;
   color: #c2410c; font-weight: 650; font-size: 12px;
 }
-.pin-badge .badge-count { background: #c2410c; }
+/* In-call speech captions */
+.call-caption {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin: 10px 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.caption-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--mint);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.call-caption p {
+  margin: 0;
+  font-style: italic;
+  color: #f1f5f9;
+}
 
 @media (max-width: 920px) {
   .app { grid-template-columns: 1fr; }
