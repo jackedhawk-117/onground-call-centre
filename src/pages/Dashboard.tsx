@@ -26,9 +26,9 @@ export function Dashboard() {
             <h1>{agent.name}</h1>
             <p className="sub">{agent.role}</p>
           </div>
-          <div>
-            <div className="queue">● {agent.queueStatus}</div>
-            <div className="muted" style={{ color: 'rgba(255,255,255,0.7)' }}>This Week</div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
+            <div className="cc-status-pill"><span className="cc-live-dot" />{agent.queueStatus}</div>
+            <button className="date-filter"><span>📅 This Week</span> <span style={{ fontSize: 10 }}>▾</span></button>
           </div>
         </div>
         <div className="kpis">
@@ -40,14 +40,14 @@ export function Dashboard() {
           <div className="kpi">
             <b>{agent.avgHandle}</b>
             <span>AVG HANDLE TIME</span>
-            <div className="delta down">▼ {Math.abs(agent.ahtDelta)}%</div>
+            <div className="delta up">▼ {Math.abs(agent.ahtDelta)}%</div>
           </div>
           <div className="kpi">
             <b>{agent.csat}%</b>
             <span>CSAT TODAY</span>
             <div className="delta up">▲ {agent.csatDelta}pt</div>
           </div>
-          <div className="kpi">
+          <div className="kpi" style={{ cursor: 'pointer' }} onClick={() => nav('/plan/calls')}>
             <b>{agent.inQueue}</b>
             <span>IN QUEUE</span>
             <div className="delta up">● live</div>
@@ -58,17 +58,17 @@ export function Dashboard() {
       <div className="grid-2">
         <div>
           <div className="progress">
-            <h3>▸ MY PROGRESS · TODAY</h3>
+            <h3><span className="cc-live-dot" style={{ display: 'inline-block', marginRight: 6, verticalAlign: 'middle' }} />MY PROGRESS · TODAY</h3>
             <div className="progress-row">
               <div className="pbox">
                 <b>{agent.leadsCreated}</b>
                 Leads Created
-                <div className="delta">▲ {agent.leadsCreatedDelta}</div>
+                <div className="delta up">▲ +{agent.leadsCreatedDelta}</div>
               </div>
               <div className="pbox">
                 <b>{agent.leadsCalled}</b>
                 Leads Called
-                <div className="delta">▲ {agent.leadsCalledDelta}</div>
+                <div className="delta up">▲ +{agent.leadsCalledDelta}</div>
               </div>
             </div>
           </div>
@@ -90,8 +90,8 @@ export function Dashboard() {
         <div>
           <div className="card earn">
             <div className="earn-top">
-              <span>My earnings this month</span>
-              <span>₹{agent.earningsMin.toLocaleString('en-IN')} to ₹{agent.earningsMax.toLocaleString('en-IN')}</span>
+              <span>💰 My earnings this month</span>
+              <span>₹{agent.earningsMin.toLocaleString('en-IN')} to ₹{agent.earningsMax.toLocaleString('en-IN')} slab</span>
             </div>
             <h2>₹{agent.earnings.toLocaleString('en-IN')}</h2>
             <p className="muted">₹{agent.earningsFromCoaching.toLocaleString('en-IN')} from coached moves</p>
@@ -99,7 +99,7 @@ export function Dashboard() {
           </div>
           <div className="card tasks">
             <div className="tasks-h">
-              <span>My Tasks</span>
+              <span>📋 My Tasks</span>
               <span className="count">{tasks.length}</span>
             </div>
             {tasks.map((t) => (
@@ -115,7 +115,10 @@ export function Dashboard() {
                 <span className={`task-icon ${t.icon === 'phone' ? 'phone-icon' : t.icon === 'spark' ? 'spark-icon' : 'clip-icon'}`}>
                   {t.icon === 'phone' ? <IconPhoneRing size={14} /> : t.icon === 'spark' ? <IconPeople size={14} /> : <IconClipboard size={14} />}
                 </span>
-                <span><b>{t.title}</b> <span className="muted">{t.detail}</span></span>
+                <span style={{ flex: 1, minWidth: 0 }}>
+                  <b>{t.title}</b> <span className="muted">{t.detail}</span>
+                </span>
+                <span className="task-chev">›</span>
               </button>
             ))}
           </div>

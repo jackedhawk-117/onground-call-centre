@@ -21,11 +21,11 @@ export function AppShell() {
           <span className="brand-mark">OG</span>
           On-Ground.ai
         </div>
-        <NavLink to="/" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`} onClick={() => setNavOpen(false)} end>
-          <IconGrid /> Dashboard
+        <NavLink to="/" className={({ isActive }) => `nav-item nav-dash ${isActive ? 'active' : ''}`} onClick={() => setNavOpen(false)} end>
+          <span className="in-icon chip-dash"><IconGrid /></span> Dashboard
         </NavLink>
-        <NavLink to="/plan/calls" className={`nav-item ${planOn ? 'active' : ''}`} onClick={() => setNavOpen(false)}>
-          <IconPhone /> Plan
+        <NavLink to="/plan/calls" className={`nav-item nav-plan ${planOn ? 'active' : ''}`} onClick={() => setNavOpen(false)}>
+          <span className="in-icon chip-plan"><IconPhone /></span> Plan
         </NavLink>
         <NavLink to="/plan/calls" className={({ isActive }) => `nav-sub ${isActive ? 'active' : ''}`} onClick={() => setNavOpen(false)}>
           Calls to make
@@ -36,15 +36,15 @@ export function AppShell() {
         <NavLink to="/plan/recent" className={({ isActive }) => `nav-sub ${isActive ? 'active' : ''}`} onClick={() => setNavOpen(false)}>
           Recent
         </NavLink>
-        <NavLink to="/practice" className={({ isActive }) => `nav-sub ${isActive ? 'active' : ''}`} onClick={() => setNavOpen(false)}>
+        <NavLink to="/practice" className={({ isActive }) => `nav-sub nav-ghost ${isActive ? 'active' : ''}`} onClick={() => setNavOpen(false)}>
           Practise a call
         </NavLink>
         <div className="nav-gap" />
-        <NavLink to="/calendar" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`} onClick={() => setNavOpen(false)}>
-          <IconCal /> Calendar
+        <NavLink to="/calendar" className={({ isActive }) => `nav-item nav-cal ${isActive ? 'active' : ''}`} onClick={() => setNavOpen(false)}>
+          <span className="in-icon chip-cal"><IconCal /></span> Calendar
         </NavLink>
-        <NavLink to="/pulse" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`} onClick={() => setNavOpen(false)}>
-          <IconPulse /> Pulse
+        <NavLink to="/pulse" className={({ isActive }) => `nav-item nav-pulse ${isActive ? 'active' : ''}`} onClick={() => setNavOpen(false)}>
+          <span className="in-icon chip-pulse"><IconPulse /></span> Pulse
         </NavLink>
       </aside>
       <div className="main">
@@ -57,10 +57,19 @@ export function AppShell() {
             On-Ground.ai
           </div>
           <div className="top-right">
-            <button className="icon-btn notif-bell" aria-label="Alerts">🔔<span className="notif-dot" /></button>
-            <span className="chip">{agent.ogScore}</span>
-            <span className="chip">★ #{agent.rank}</span>
-            <span className="avatar">{agent.initials}</span>
+            <button className="notif-bell" aria-label="Alerts">
+              <span className="notif-bell-icon">🔔</span>
+            </button>
+            <div className="global-ranks">
+              <span className="grank-pill teal">{agent.ogScore}</span>
+              <span className="grank-pill gold">★ #{agent.rank}</span>
+            </div>
+            <div className="ar-badge" title="Arvind Rajan · The Sleep Company">
+              <div className="ar-badge-ring" />
+              <div className="ar-badge-inner">
+                <span className="ar-badge-initials">{agent.initials}</span>
+              </div>
+            </div>
           </div>
         </header>
         <div className="content">
